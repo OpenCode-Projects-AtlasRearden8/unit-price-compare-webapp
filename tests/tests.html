@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Unit Price Compare — tests</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; margin: 2rem; max-width: 46rem; }
+  .pass { color: #2e8b40; font-weight: 700; }
+  .fail { color: #a12622; font-weight: 700; }
+  li { margin-bottom: 0.2rem; }
+</style>
+</head>
+<body>
+<h1>Unit math tests</h1>
+<p><span id="summary">Running…</span></p>
+<ul id="results"></ul>
+<script src="../unit-math.js"></script>
+<script src="unit-math-tests.js"></script>
+<script>
+  (function () {
+    var result = window.RunUnitMathTests(window.UnitMath);
+    var summary = document.getElementById("summary");
+    var results = document.getElementById("results");
+    if (result.failures.length === 0) {
+      summary.innerHTML = '<span class="pass">PASS — ' + result.passes + " assertions</span>";
+    } else {
+      summary.innerHTML =
+        '<span class="fail">FAIL — ' + result.failures.length + " of " +
+        (result.passes + result.failures.length) + " assertions failed</span>";
+      result.failures.forEach(function (f) {
+        var li = document.createElement("li");
+        li.textContent = f;
+        results.appendChild(li);
+      });
+    }
+  })();
+</script>
+</body>
+</html>

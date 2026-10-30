@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit Price Compare — true price per ounce, pound &amp; sheet</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <h1>Unit Price Compare</h1>
+  <p class="tagline">
+    Enter shelf prices, package sizes, and units — see the <strong>true price per
+    ounce, pound, or sheet</strong> ranked, with the best value highlighted.
+    Works for groceries, resale supplies, and bulk math. No accounts, no network:
+    everything stays on this device.
+  </p>
+  <p id="storage-status" class="storage-status" hidden></p>
+</header>
+
+<main>
+  <section aria-labelledby="add-heading">
+    <h2 id="add-heading">Add an item</h2>
+    <form id="item-form" autocomplete="off">
+      <div class="grid">
+        <label for="store">Store<span class="hint"> (e.g. Walmart)</span></label>
+        <input id="store" name="store" type="text" placeholder="Store A" maxlength="60" required>
+
+        <label for="shelf">Shelf / aisle<span class="hint"> (grouping key)</span></label>
+        <input id="shelf" name="shelf" type="text" placeholder="Paper towels, Aisle 7" maxlength="60" required>
+
+        <label for="name">Item name</label>
+        <input id="name" name="name" type="text" placeholder="Bounty paper towels" maxlength="80" required>
+
+        <label for="price">Shelf price ($)</label>
+        <input id="price" name="price" type="number" step="0.01" min="0.01" inputmode="decimal" placeholder="12.99" required>
+
+        <label for="size">Package size</label>
+        <input id="size" name="size" type="number" step="any" min="0.01" inputmode="decimal" placeholder="150" required>
+
+        <label for="unit">Unit</label>
+        <select id="unit" name="unit" required>
+          <option value="oz">oz (weight)</option>
+          <option value="lb">lb (pounds)</option>
+          <option value="g">g (grams)</option>
+          <option value="kg">kg (kilograms)</option>
+          <option value="fl oz">fl oz (fluid)</option>
+          <option value="mL">mL</option>
+          <option value="L">L (liters)</option>
+          <option value="cup">cup</option>
+          <option value="pint">pint</option>
+          <option value="quart">quart</option>
+          <option value="gal">gal (gallon)</option>
+          <option value="sheets">sheets</option>
+          <option value="count">count (items)</option>
+          <option value="dozen">dozen</option>
+        </select>
+      </div>
+      <button type="submit">Add item</button>
+      <button type="button" id="demo-btn" class="secondary">Load example data</button>
+    </form>
+  </section>
+
+  <section aria-labelledby="rankings-heading">
+    <h2 id="rankings-heading">Price rankings by shelf</h2>
+    <p class="hint-block">
+      Items group by shelf name, then by unit type, so you always compare like
+      with like. The cheapest option in each group is highlighted in green.
+      Sort is ascending: cheapest first.
+    </p>
+    <div id="rankings"></div>
+  </section>
+
+  <section aria-labelledby="totals-heading">
+    <h2 id="totals-heading">Totals by store &amp; shelf</h2>
+    <p class="hint-block">
+      The combined cost of everything you entered for each store — a quick way
+      to see which store's cart wins before you drive anywhere.
+    </p>
+    <div id="totals"></div>
+  </section>
+
+  <section aria-labelledby="note-heading">
+    <h2 id="note-heading">Save-comparison note</h2>
+    <label for="note" class="visually-hidden">Note</label>
+    <textarea id="note" rows="4" placeholder="e.g. Store A wins on detergent bulk pack; recheck price 11/05"></textarea>
+    <p>
+      <button type="button" id="save-note-btn">Save note</button>
+      <button type="button" id="export-btn" class="secondary">Export data (.json)</button>
+      <label class="secondary file-label">Import data
+        <input type="file" id="import-file" accept="application/json,.json" class="visually-hidden">
+      </label>
+      <button type="button" id="clear-btn" class="danger">Clear all data</button>
+    </p>
+    <p id="note-status" class="storage-status"></p>
+  </section>
+</main>
+
+<footer>
+  <p>
+    Unit Price Compare — offline, single-file-friendly, zero dependencies.
+    Local-first by design: data lives in your browser only.
+  </p>
+</footer>
+
+<script src="unit-math.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
